@@ -3,12 +3,13 @@ requires = ["setuptools>=42", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "package-name"
+name = "percefons"
 version = "0.1.0"
-description = "A sample Python package"
+# requires-python = ">=3.10"
+description = "Fast API Template with clean architecture and REST API configuration + database + authentication system."
 readme = "README.md"
 authors = [
-    { name = "Your Name", email = "your.email@example.com" },
+    { name = "DOCTOR MOKIRA", email = "dr.mokira@gmail.com" },
 ]
 license = { file = "LICENSE" }
 classifiers = [
@@ -16,19 +17,25 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
-keywords = ["origin", "python3"]
+keywords = ["percefons", "python3", "fastapi", "rest-api", "clean-architecture", "swagger"]
 dependencies = [
-    "requests>=2.25.1",
     "python-dotenv==1.0.0",
+    "fastapi",
+    "uvicorn[standard]",
+    "pyjwt",
+    "passlib[bcrypt]",
+    "sqlalchemy>=2.0",
+    "psycopg2-binary",
+    "alembic",
+    "loguru",
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/your-username/my-python-package"
-"Bug Tracker" = "https://github.com/your-username/my-python-package/issues"
+"Homepage" = "https://github.com/mokira3d48/percefons"
+# "Bug Tracker" = "https://github.com/your-username/my-python-package/issues"
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [project.scripts]
-mycmd = "package_name.__main__:main"
-
+start = "percefons.main:main"
