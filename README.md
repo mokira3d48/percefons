@@ -1,17 +1,16 @@
 <div align="center">
-  
-# ORIGIN PROJECT
 
-![](https://img.shields.io/badge/Python-3.8-blue)
-![](https://img.shields.io/badge/LICENSE-MIT-%2300557f)
-![](https://img.shields.io/badge/lastest-2025--06--06-green)
+# PERCEFON'S SERVER
+
+![](https://img.shields.io/badge/Python-3.10-blue)
+![](https://img.shields.io/badge/LICENSE-Apache--2.0-%2300557f)
+![](https://img.shields.io/badge/lastest-2025--08--19-green)
 ![](https://img.shields.io/badge/contact-dr.mokira%40gmail.com-blueviolet)
 
 </div>
 
 Cloneable referential to initialize a Python project based on this template with the best practice.
-This is a pre-configured and read-to-used project to create deployable python libraries
-or application much more easily.
+This is a pre-configured and read-to-used project to create deployable Fast API server with clean architecture and REST API configuration + database + authentication system.
 
 **Table of Contents**
 
@@ -40,7 +39,7 @@ and `pip` installed on your machine. And then run the following command lines.
 ### For Linux
 
 ```bash
-git clone git@github.com:mokira3d48/PyOrigin.git my_project;
+git clone git@github.com:mokira3d48/percephon.git my_project;
 cd my_project;
 sudo rm -r .git;
 git init;  # To create a new instance of git repository
@@ -144,7 +143,7 @@ Contributions are welcome! Please follow these steps:
 
 ## Licence
 
-This project is licensed under the MIT License. See the file [LICENSE](LICENSE)
+This project is licensed under the Apache-2.0 license. See the file [LICENSE](LICENSE)
 for more details, contact me please.
 
 ## Contact
