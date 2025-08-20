@@ -13,5 +13,5 @@ class UserRepository(ABC):
         ...
 
     @abstractmethod
-    def create(self, username: str, email: str, hashed_password: str) -> User:
+    def create(self, user: User) -> User:
         ...

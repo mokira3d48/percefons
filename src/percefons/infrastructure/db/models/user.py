@@ -1,5 +1,5 @@
 from datetime import datetime
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, DateTime, Boolean
 
 # from sqlalchemy.dialects.postgresql import JSONB
 # from sqlalchemy.orm import relationship
@@ -14,4 +14,7 @@ class UserModel(BaseModel):
     username = Column(String(50), unique=True, nullable=False, index=True)
     email = Column(String(255), unique=True, nullable=False, index=True)
     hashed_password = Column(String(255), nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow)
+    is_active = Column(Boolean, default=False)
+    is_staff = Column(Boolean, default=False)
+    is_superuser = Column(Boolean, default=False)
+    created_at = Column(DateTime, default=datetime.now)
