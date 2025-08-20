@@ -26,10 +26,12 @@ class JWTAuth(ABC):
         def __init__(
             self,
             status: t.Literal['S', 'F', 'E'],
-            message: str = None
+            message: str = None,
+            payload: dict = None
         ):
             self.status = status
             self.message = message
+            self.payload = payload
 
     @abstractmethod
     def get_access_token(self, subject: str, expired: int = 5) -> str:

@@ -1,12 +1,12 @@
+import typing as t
 from datetime import datetime, timedelta
-from typing import Optional
-from percefons.application.services import JWTAuth
 
 import jwt
-from fastapi import HTTPException, status
-from app.config import get_settings
+# from fastapi import HTTPException, status
 
-settings = get_settings()
+from percefons.core import  settings
+from percefons.application.services import JWTAuth
+
 
 class JWTAuthImpl(JWTAuth):
     def __init__(
@@ -30,8 +30,29 @@ class JWTAuthImpl(JWTAuth):
         token = jwt.encode(payload, self.secret_key, algorithm=self.algorithm)
         return token
 
-    def decode(self, token: str) -> dict:
+    def verify_access_token(self, token: str) -> JWTAuth.Result:  # noqa
         try:
-            return jwt.decode(token, self.secret, algorithms=[self.algorithm])
-        except jwt.PyJWTError:
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
+            payload = jwt.decode(
+                jwt=token,
+                key=self.secret_key,
+                algorithms=[self.algorithm]
+            )
+            result = self.Result(
+                status=JWTAuth.SUCCESS,  # noqa
+                message="The access token is verified successfully.",
+                payload=payload
+            )
+            return result
+        except jwt.ExpiredSignatureError:
+            # raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Invalid token")
+            result = self.Result(
+                status=JWTAuth.EXPIRED,  # noqa
+                message="The access token is expired."
+            )
+            return result
+        except jwt.PyJWTError | jwt.InvalidTokenError as e:
+            result = self.Result(
+                status=JWTAuth.FAILED,  # noqa
+                message=str(e),
+            )
+            return result
