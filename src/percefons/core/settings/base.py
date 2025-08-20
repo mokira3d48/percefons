@@ -8,6 +8,7 @@ if os.path.isfile(LOGGING_CONFIG):
     logging.config.fileConfig(LOGGING_CONFIG)
 
 APP_NAME: str = os.getenv('APP_NAME', "PERCEFON'S SERVER" )
+VERSION: str = os.getenv('VERSION', '0.1.0')
 API_PREFIX: str = os.getenv('API_PREFIX', "/api/v1")
 DEBUG: bool = bool(os.getenv('DEBUG', 'True'))
 
