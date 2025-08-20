@@ -15,7 +15,10 @@ from dataclasses import dataclass
 from percefons.domain.entities.user import User
 from percefons.domain.repositories import UserRepository
 from percefons.application.services import PasswordHandler
-from percefons.application.exceptions import UserIsAlreadyExists
+from percefons.application.exceptions import (
+    UserIsAlreadyExists,
+    InvalidCommandError
+)
 
 LOGGER = logging.getLogger(__name__)
 
@@ -43,7 +46,7 @@ class UserRegistration:
         # Verify if the new user is already exists in database:
         existing_user = self.user_repository.get_by_username(username)
         if existing_user is not None:
-            raise UserIsAlreadyExists()
+            raise UserIsAlreadyExists
 
         password_hashed = self.password_handler.get_password_hash(password)
 
@@ -74,7 +77,21 @@ class UserRegistrationCommand:
         self.email = None
 
     def validate(self):
-        ...
+        """
+        :raises InvalidCommandError:
+        """
+        if not self.username:
+            raise InvalidCommandError(
+                message="The username is not defined. It is empty.",
+                code="username_is_empty",
+                field="username",
+            )
+        if not self.password:
+            raise InvalidCommandError(
+                message="The password is not defined. It is empty.",
+                code="password_is_empty",
+                field="password",
+            )
 
     def execute(self) -> UserRegistration.Result:
         """
