@@ -9,10 +9,10 @@ if os.path.isfile(LOGGING_CONFIG):
 
 APP_NAME: str = os.getenv('APP_NAME', "PERCEFON'S SERVER" )
 VERSION: str = os.getenv('VERSION', '0.1.0')
-API_PREFIX: str = os.getenv('API_PREFIX', "/api/v1")
+API_V1_PREFIX: str = os.getenv('API_PREFIX', "/api/v1")
 DEBUG: bool = bool(os.getenv('DEBUG', 'True'))
 
-DATABASE_URL: str = "postgresql+psycopg2://postgres:postgres@db:5432/agentic_rag"
+DATABASE_URL: str = os.getenv('DATABASE_URL', "sqlite:///./rag.db")
 
 JWT_SECRET: str = os.getenv('JWT_SECRET', "change-me")
 JWT_ALG: str = os.getenv('JWT_ALG', "HS256")
