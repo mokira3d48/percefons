@@ -1,5 +1,7 @@
+import typing as t
 from dataclasses import dataclass
 from datetime import datetime
+from .permission import Permission
 
 
 @dataclass
@@ -12,6 +14,7 @@ class User:
     is_staff: bool = False
     is_superuser: bool = False
     id: int = None
+    permissions: t.List[Permission] = None
 
     def activate(self):
         self.is_active = True

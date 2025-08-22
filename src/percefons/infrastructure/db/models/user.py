@@ -1,10 +1,11 @@
 from datetime import datetime
 from sqlalchemy import Column, Integer, String, DateTime, Boolean
+from sqlalchemy.orm import relationship
 
 # from sqlalchemy.dialects.postgresql import JSONB
-# from sqlalchemy.orm import relationship
 
-from percefons.infrastructure.db.models.base import BaseModel
+from .base import BaseModel
+from .user_perms import user_permission_association
 
 
 class UserModel(BaseModel):
@@ -18,3 +19,9 @@ class UserModel(BaseModel):
     is_staff = Column(Boolean, default=False)
     is_superuser = Column(Boolean, default=False)
     created_at = Column(DateTime, default=datetime.now)
+
+    permissions = relationship(
+        argument="PermissionModel",
+        secondary=user_permission_association,
+        back_populates="users"
+    )

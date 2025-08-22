@@ -19,7 +19,7 @@ install:
 	# alembic init migrations   # Configure alembic.ini avec sqlalchemy.url = sqlite:///./rag.db
 
 migrations:
-	alembic revision --autogenerate -m $(m)
+	alembic revision --autogenerate -m "$(m)"
 
 update:
 	alembic upgrade head

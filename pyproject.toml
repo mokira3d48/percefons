@@ -39,3 +39,4 @@ where = ["src"]
 
 [project.scripts]
 start = "percefons.main:main"
+initdb = "percefons.infrastructure.db.initialization:main"

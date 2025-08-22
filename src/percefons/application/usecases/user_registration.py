@@ -46,7 +46,7 @@ class UserRegistration:
         # Verify if the new user is already exists in database:
         existing_user = self.user_repository.get_by_username(username)
         if existing_user is not None:
-            raise UserIsAlreadyExists
+            raise UserIsAlreadyExists(code="user_registration_error")
 
         password_hashed = self.password_handler.get_password_hash(password)
 
