@@ -1,3 +1,4 @@
+ 
 fastapi
 uvicorn[standard]
 psycopg2-binary
@@ -10,3 +11,5 @@ python-dotenv==1.0.0
 loguru
 setuptools>=42
 wheel
+pytest==8.2
+autopep8

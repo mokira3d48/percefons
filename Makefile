@@ -2,26 +2,20 @@ full-install:
 	python3 -m venv .venv
 	.venv/bin/python3 --version
 	.venv/bin/python3 -m pip install --upgrade pip
-	.venv/bin/python3 -m pip install -r requirements/base.txt
+	.venv/bin/python3 -m pip install -r requirements.txt
+	alembic init migrations   # Configure alembic.ini avec sqlalchemy.url = sqlite:///./rag.db
+	cp .env_example .env
 
 dev-install:
-	.venv/bin/python3 -m pip install -r requirements/dev.txt
+	.venv/bin/python3 -m pip install -r requirements.txt
 	.venv/bin/python3 -m pip install -e .
 
 install:
 	pip install --upgrade pip
-	pip install -r requirements/base.txt
-
-dev-migrations:
-	alembic init migrations   # Configure alembic.ini avec sqlalchemy.url = sqlite:///./rag.db
-	alembic revision --autogenerate -m "init db"
-	alembic upgrade head
+	pip install -r requirements.txt
 
 migrations:
 	alembic revision --autogenerate -m "init"
-	alembic upgrade head
-
-migrate:
 	alembic upgrade head
 
 test:
