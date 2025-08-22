@@ -1,6 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from percefons.core import settings
+from .models import BaseModel
 
 engine = create_engine(str(settings.DATABASE_URL), pool_pre_ping=True)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
@@ -11,3 +12,6 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+BaseModel.metadata.create_all(bind=engine)

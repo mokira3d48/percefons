@@ -10,15 +10,14 @@ from dataclasses import dataclass
 
 @dataclass
 class UserRegistrationRequest:
-    username: str
-    password: str
-    email: str
-
+    username: str = "alice"
+    password: str = "aX6/9p6XoY]o4$#"
+    email: str = "alice@email.com"
 
 
 # class UserRegistrationResponse(BaseModel):
 @dataclass
 class UserRegistrationResponse:
-    userid: int
-    username: str
-    created_at: datetime
+    userid: int = 12
+    username: str = "alice"
+    created_at: datetime = None

@@ -55,6 +55,8 @@ class UserRepositoryImpl(UserRepository):
         users_query = self.db.query(UserModel)
         users = users_query.filter(UserModel.username == username)
         first_user = users.first()
+        if not first_user:
+            return None
         user_ent = self.convert_to_user_entity(first_user)
         return user_ent
 
@@ -62,6 +64,8 @@ class UserRepositoryImpl(UserRepository):
         users_query = self.db.query(UserModel)
         users = users_query.filter(UserModel.email == email)
         first_user = users.first()
+        if not first_user:
+            return None
         user_ent = self.convert_to_user_entity(first_user)
         return user_ent
 
