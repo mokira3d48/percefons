@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from percefons.core import settings
 from percefons.interfaces.api.routes.auth import router as auth_router
+from percefons.interfaces.api.schemas import exception_schemas
 
 app = FastAPI(
     title=settings.APP_NAME,
@@ -42,10 +43,14 @@ app.include_router(auth_router, prefix=settings.API_V1_PREFIX)
 
 @app.exception_handler(Exception)
 async def global_exception_handler(request, exc):
-    return JSONResponse(
-        status_code=500,
-        content={"detail": "Internal server error"}
-    )
+    response = exception_schemas.exception_handler(exc)
+    if response is not None:
+        return response
+    else:
+        return JSONResponse(
+            status_code=500,
+            content={"detail": "Internal server error"}
+        )
 
 
 def main():
