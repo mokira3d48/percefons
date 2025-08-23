@@ -1,4 +1,4 @@
-m ?= "Migration generation"
+m ?= Migration generation
 
 
 full-install:

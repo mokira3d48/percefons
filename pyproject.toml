@@ -40,3 +40,4 @@ where = ["src"]
 [project.scripts]
 start = "percefons.main:main"
 init-db = "percefons.infrastructure.managers.init_db:main"
+create-sudo = "percefons.infrastructure.managers.sudo:main"

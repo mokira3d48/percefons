@@ -8,8 +8,8 @@ from .permission import Permission
 class User:
     username: str
     hashed_password: str
-    created_at: datetime
     email: str = None
+    created_at: datetime = None
     is_active: bool = False
     is_staff: bool = False
     is_superuser: bool = False

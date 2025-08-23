@@ -5,6 +5,9 @@ class InvalidFieldError(ValueError):
         self.code = code
         self.field = field
 
+    def __str__(self):
+        return self.message
+
 
 class InvalidEmailError(InvalidFieldError):
     ...

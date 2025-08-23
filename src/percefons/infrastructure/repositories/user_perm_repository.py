@@ -1,4 +1,3 @@
-import typing as t
 import logging
 
 from sqlalchemy.orm import Session
