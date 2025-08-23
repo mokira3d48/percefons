@@ -1,5 +1,6 @@
 import typing as t
 from abc import ABC, abstractmethod
+
 from .entities.user import User
 from .entities.permission import Permission
 

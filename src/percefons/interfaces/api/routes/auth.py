@@ -14,7 +14,7 @@ from percefons.interfaces.api.utils import get_current_user_id
 from percefons.application.usecases import user_registration
 
 LOGGER = logging.getLogger(__name__)
-_db_connection = Depends(get_db)
+# _db_connection = Depends(get_db)
 # _user_repository = user_repository.UserRepositoryImpl(_db_connection)
 _password_handler = password_handler.PasswordHandlerImpl()
 
