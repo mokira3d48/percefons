@@ -1,7 +1,5 @@
-from datetime import datetime
-
 import uvicorn
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from percefons.core import settings
@@ -42,14 +40,14 @@ app.include_router(auth_router, prefix=settings.API_V1_PREFIX)
 
 
 @app.exception_handler(Exception)
-async def global_exception_handler(request, exc):
+async def global_exception_handler(_request, exc):
     response = exception_schemas.exception_handler(exc)
     if response is not None:
         return response
     else:
         return JSONResponse(
             status_code=500,
-            content={"detail": "Internal server error"}
+            content={"message": str(exc), "code": "internal_server_error"}
         )
 
 

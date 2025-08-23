@@ -28,7 +28,14 @@ class PermissionRepository(ABC):
         ...
 
     @abstractmethod
-    def all(self) -> t.Generator[Permission] | None:
+    def create_all(
+        self,
+        permissions: t.List[Permission]
+    ) -> t.List[Permission] | None:
+        ...
+
+    @abstractmethod
+    def all(self) -> t.Iterator[Permission] | None:
         ...
 
 

@@ -4,10 +4,10 @@ from percefons.core import settings
 from .models import BaseModel
 
 engine = create_engine(str(settings.DATABASE_URL), pool_pre_ping=True)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+LocalSession = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 def get_db():
-    db = SessionLocal()
+    db = LocalSession()
     try:
         yield db
     finally:

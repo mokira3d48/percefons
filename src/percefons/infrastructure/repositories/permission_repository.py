@@ -60,7 +60,25 @@ class PermissionRepositoryImpl(PermissionRepository):
         permission.id = perm_model_instance.id
         return permission
 
-    def all(self) -> t.Generator[Permission] | None:
+    def create_all(
+        self,
+        permissions: t.List[Permission]
+    ) -> t.List[Permission] | None:
+        """Creation of several instances of permission into database."""
+        if not permissions:
+            return None
+        perm_models = [self.convert_to_permission_model(p)
+                       for p in permissions]
+        self.db.add_all(perm_models)
+        self.db.commit()
+
+        for perm_model, perm in zip(perm_models, permissions):
+            self.db.refresh(perm_model)
+            perm.id = perm_model.id
+        return permissions
+
+
+    def all(self) -> t.Iterator[Permission] | None:
         permission_query = (self.db.query(PermissionModel)
             .order_by(PermissionModel.name))
         permissions = permission_query.all()
