@@ -10,7 +10,7 @@ class Login:
     @dataclass
     class Result:
         status: Literal['F', 'S']
-        token: str = None
+        tokens: dict = None
 
     def __init__(
         self,
@@ -30,8 +30,8 @@ class Login:
         if not pw_verif:
             raise AuthenticationError("Username/password is incorrect.")
 
-        token = self.jwt_service.get_access_token(dict())
-        return self.Result(status='S', token=token)
+        tokens = self.jwt_service.get_access_token(str(user.id))
+        return self.Result(status='S', token=tokens)
 
 
 class LoginCommand:
