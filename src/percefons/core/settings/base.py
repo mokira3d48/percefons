@@ -14,9 +14,11 @@ DEBUG: bool = bool(os.getenv('DEBUG', 'True'))
 
 DATABASE_URL: str = os.getenv('DATABASE_URL', "sqlite:///./rag.db")
 
-JWT_SECRET: str = os.getenv('JWT_SECRET', "change-me")
+JWT_ACCESS_SECRET: str = os.getenv('JWT_ACCESS_SECRET', "change-me")
+JWT_REFRESH_SECRET: str = os.getenv('JWT_REFRESH_SECRET', "change-me2")
+ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 1  # 60 min x 1 -> 1h;
+REFRESH_TOKEN_EXPIRE_MINUTES: int = 60 * 48  # 60 min x 48h -> 2 days;
 JWT_ALG: str = os.getenv('JWT_ALG', "HS256")
-ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 1  # 60 min x 1 -> 1h
 
 # CORS
 CORS_ORIGINS: str = os.getenv('CORS_ORIGINS', "*")

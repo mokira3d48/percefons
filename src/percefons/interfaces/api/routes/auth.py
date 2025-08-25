@@ -5,13 +5,15 @@ from sqlalchemy.orm import Session
 
 from percefons.domain import validators
 from percefons.infrastructure.repositories import user_repository
-from percefons.infrastructure.services import password_handler
+from percefons.infrastructure.services import password_handler, jwt_auth
 from percefons.infrastructure.db.session import get_db
 from percefons.interfaces.api.schemas import (
-    UserRegistrationRequest, UserRegistrationResponse)
+    UserRegistrationRequest, UserRegistrationResponse,
+    LoginRequest, LoginResponse)
 
 from percefons.interfaces.api.utils import get_current_user_id
 from percefons.application.usecases import user_registration
+from percefons.application.usecases import login
 
 LOGGER = logging.getLogger(__name__)
 # _db_connection = Depends(get_db)
@@ -37,9 +39,9 @@ def register(
     validators.validate_email(str(payload.email))
 
     # Command creation:
-    _user_repository = user_repository.UserRepositoryImpl(db)
+    user_repository_impl = user_repository.UserRepositoryImpl(db)
     operation = user_registration.UserRegistration(
-        user_repository=_user_repository,
+        user_repository=user_repository_impl,
         password_handler=_password_handler
     )
     cmd = user_registration.UserRegistrationCommand(operation)
@@ -54,5 +56,31 @@ def register(
         username=result.username,
         userid=result.userid,
         created_at=result.created_at,
+    )
+    return response
+
+
+@router.post(
+    path="/login",
+    response_model=LoginResponse,
+    summary="Login the user using its username and password."
+)
+def login_fn(payload: LoginRequest, db: Session = Depends(get_db)):
+    user_repository_impl = user_repository.UserRepositoryImpl(db)
+    auth = jwt_auth.JWTAuthImpl()
+    operation = login.Login(
+        user_repository=user_repository_impl,
+        password_handler=_password_handler, jwt_service=auth,
+    )
+    cmd = login.LoginCommand(operation)
+    cmd.username = payload.username
+    cmd.password = payload.password
+
+    cmd.validate()
+    result = cmd.execute()
+
+    response = LoginResponse(
+        access_token=result.tokens['access_token'],
+        refresh_token=result.tokens['refresh_token'],
     )
     return response

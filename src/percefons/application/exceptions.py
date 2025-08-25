@@ -16,3 +16,11 @@ class InvalidCommandError(AssertionError):
         self.message = message if message is not None else self.default_message
         self.code = code if code is not None else self.default_code
         self.field = field
+
+
+
+class AuthenticationError(RuntimeError):
+    default_message: str = "Authentication failed."
+
+    def __init__(self, message: str = None):
+        self.message = message if message else self.default_message

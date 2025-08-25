@@ -20,10 +20,16 @@ class InvalidUserPasswordResponse(InvalidFieldResponse):
     ...
 
 
+@dataclass
+class AuthenticationFailureResponse:
+    message: str = "Authentication failed."
+
+
 Response = t.Union[UserIsAlreadyExistsResponse]
 RESPONSE_CLASSES = {
     'UserIsAlreadyExists': (UserIsAlreadyExistsResponse, 403),
     'InvalidUserPasswordError': (InvalidUserPasswordResponse, 400),
+    'AuthenticationError': (AuthenticationFailureResponse, 401),
 }
 
 

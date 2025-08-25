@@ -24,6 +24,6 @@ def get_current_user_id(token: str = Depends(oauth2_scheme)) -> int:
     if not sub:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid token payload"
+            detail="Invalid payload subject."
         )
     return int(sub)

@@ -23,9 +23,3 @@ class InvalidNameError(InvalidFieldError):
 
 class InvalidUserPasswordError(InvalidFieldError):
     ...
-
-class AuthenticationError(RuntimeError):
-    default_message: str = "Authentication failed."
-
-    def __init__(self, message: str = None):
-        self.message = message if message else self.default_message

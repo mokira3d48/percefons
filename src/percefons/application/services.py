@@ -34,9 +34,13 @@ class JWTAuth(ABC):
             self.payload = payload
 
     @abstractmethod
-    def get_access_token(self, subject: str, expired: int = 5) -> str:
+    def get_auth(self, subject: str) -> dict:
         ...
 
     @abstractmethod
-    def verify_access_token(self, token: str) -> Result:
+    def refresh_auth(self, refresh_token: str) -> t.Optional[str]:
+        ...
+
+    @abstractmethod
+    def verify_auth(self, token: str) -> Result:
         ...

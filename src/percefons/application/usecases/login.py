@@ -1,7 +1,7 @@
 from typing import Literal
 from dataclasses import dataclass
 
-from percefons.domain.exceptions import AuthenticationError
+from percefons.application.exceptions import AuthenticationError
 from percefons.domain.repositories import UserRepository
 from percefons.application.services import JWTAuth, PasswordHandler
 
@@ -30,8 +30,8 @@ class Login:
         if not pw_verif:
             raise AuthenticationError("Username/password is incorrect.")
 
-        tokens = self.jwt_service.get_access_token(str(user.id))
-        return self.Result(status='S', token=tokens)
+        tokens = self.jwt_service.get_auth(str(user.id))
+        return self.Result(status='S', tokens=tokens)
 
 
 class LoginCommand:
@@ -41,7 +41,8 @@ class LoginCommand:
         self.password = None
 
     def validate(self):
-        ...
+        if not self.username or not self.password:
+            raise AuthenticationError("Username/password is incorrect.")
 
     def execute(self) -> Login.Result:
         result = self.operation.execute(self.username, self.password)
